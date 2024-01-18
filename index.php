@@ -12,6 +12,6 @@ foreach ($newsManager->listNews() as $news) {
 	echo("############ NEWS " . $news->title . " ############\n");
 	echo($news->body . "\n");
 	foreach ($news->comments as $comment) {
-		echo("Comment "  . " : " . $comment->body . "\n");
+		echo("Comment "  . $comment->id . " : " . $comment->body . "\n");
 	}
 }
