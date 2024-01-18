@@ -24,19 +24,7 @@ class NewsManager
 	*/
 	public function listNews()
 	{
-		$db = DB::getInstance();
-		$rows = $db->select('SELECT * FROM `news`');
-
-		$news = [];
-		foreach($rows as $row) {
-			$n = new News();
-			$news[] = $n->setId($row['id'])
-			  ->setTitle($row['title'])
-			  ->setBody($row['body'])
-			  ->setCreatedAt($row['created_at']);
-		}
-
-		return $news;
+		return News::all();
 	}
 
 	/**

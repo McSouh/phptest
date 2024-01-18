@@ -21,19 +21,7 @@ class CommentManager
 
 	public function listComments()
 	{
-		$db = DB::getInstance();
-		$rows = $db->select('SELECT * FROM `comment`');
-
-		$comments = [];
-		foreach($rows as $row) {
-			$n = new Comment();
-			$comments[] = $n->setId($row['id'])
-			  ->setBody($row['body'])
-			  ->setCreatedAt($row['created_at'])
-			  ->setNewsId($row['news_id']);
-		}
-
-		return $comments;
+		return Comment::all();
 	}
 
 	public function addCommentForNews($body, $newsId)
