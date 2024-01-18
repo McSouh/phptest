@@ -1,8 +1,10 @@
 <?php
 
-class Comment
+namespace App\Models;
+
+class News
 {
-	protected $id, $body, $createdAt, $newsId;
+	protected $id, $title, $body, $createdAt;
 
 	public function setId($id)
 	{
@@ -15,6 +17,19 @@ class Comment
 	{
 		return $this->id;
 	}
+
+	public function setTitle($title)
+	{
+		$this->title = $title;
+
+		return $this;
+	}
+
+	public function getTitle()
+	{
+		return $this->title;
+	}
+
 	public function setBody($body)
 	{
 		$this->body = $body;
@@ -37,17 +52,5 @@ class Comment
 	public function getCreatedAt()
 	{
 		return $this->createdAt;
-	}
-
-	public function getNewsId()
-	{
-		return $this->newsId;
-	}
-
-	public function setNewsId($newsId)
-	{
-		$this->newsId = $newsId;
-
-		return $this;
 	}
 }
