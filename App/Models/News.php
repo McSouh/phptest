@@ -6,24 +6,19 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class News extends Eloquent
 {
-	protected $table = 'news';
-	
-	protected $fillable = ['title', 'body', 'created_at'];
+    protected $table = 'news';
 
-	public $timestamps = false;
+    protected $fillable = ['title', 'body', 'created_at'];
 
-	public function comments()
-	{
-		return $this->hasMany('App\Models\Comment');
-	}
+    public $timestamps = false;
 
-	public static function boot()
-	{
-		parent::boot();
-		self::deleting(function(News $news) {
-			$news->comments->each(function($comment) {
-				$comment->delete();
-			});
-		});
-	}
+    /**
+     * Get the comments for the news article.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -12,8 +12,13 @@ class Comment extends Eloquent
 
 	public $timestamps = false;
 
+	/**
+     * Get the news associated with the comment.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
 	public function news()
 	{
-		return $this->belongsTo('App\Models\News');
+		return $this->belongsTo(News::class);
 	}
 }

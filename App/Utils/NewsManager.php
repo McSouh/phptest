@@ -6,37 +6,63 @@ use App\Models\News;
 
 class NewsManager
 {
-	/**
-	* list all news
-	*/
-	public function listNews()
-	{
-		return News::all();
-	}
+    /**
+     * List all news.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function listNews()
+    {
+        return News::all();
+    }
 
-	/**
-	* add a record in news table
-	*/
-	public function addNews($title, $body)
-	{
-		$news = new News([
-			'title' => $title,
-			'body' => $body,
-			'created_at' => date('Y-m-d H:i:s')
-		]);
+    /**
+     * Add a record to the news table.
+     *
+     * @param string $title
+     * @param string $body
+     * @return int The ID of the inserted news
+     */
+    public function addNews($title, $body)
+    {
+        try {
 
-		$news->save();
+            $news = new News([
+                'title' => $title,
+                'body' => $body,
+				'created_at' => date('Y-m-d H:i:s')
+            ]);
 
-		return $news->id;
-	}
+            $news->save();
 
-	/**
-	* deletes a news, and also linked comments
-	*/
-	public function deleteNews($id)
-	{
-		$news = News::find($id);
-		$news->comments()->delete();
-		return $news->delete();
-	}
+            return $news->id;
+
+        } catch (\Exception $e) {
+
+			return false;
+
+        }
+    }
+
+    /**
+     * Delete a news along with its associated comments.
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function deleteNews($id)
+    {
+        try {
+
+            $news = News::find($id);
+            $news->comments()->delete();
+            $news->delete();
+            return true;
+
+        } catch (\Exception $e) {
+
+            return false;
+
+        }
+    }
 }
