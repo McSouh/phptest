@@ -6,18 +6,6 @@ use App\Models\Comment;
 
 class CommentManager
 {
-	private static $instance = null;
-
-
-	public static function getInstance()
-	{
-		if (null === self::$instance) {
-			$c = __CLASS__;
-			self::$instance = new $c;
-		}
-		return self::$instance;
-	}
-
 	public function listComments()
 	{
 		return Comment::all();
