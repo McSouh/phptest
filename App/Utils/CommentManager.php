@@ -3,7 +3,6 @@
 namespace App\Utils;
 
 use App\Models\Comment;
-use App\Utils\DB;
 
 class CommentManager
 {
@@ -26,16 +25,20 @@ class CommentManager
 
 	public function addCommentForNews($body, $newsId)
 	{
-		$db = DB::getInstance();
-		$sql = "INSERT INTO `comment` (`body`, `created_at`, `news_id`) VALUES('". $body . "','" . date('Y-m-d') . "','" . $newsId . "')";
-		$db->exec($sql);
-		return $db->lastInsertId($sql);
+		$comment = new Comment([
+			'body' => $body,
+			'news_id' => $newsId,
+			'created_at' => date('Y-m-d H:i:s')
+		]);
+
+		$comment->save();
+
+		return $comment->id;
 	}
 
 	public function deleteComment($id)
 	{
-		$db = DB::getInstance();
-		$sql = "DELETE FROM `comment` WHERE `id`=" . $id;
-		return $db->exec($sql);
+		$comment = Comment::find($id);
+		return $comment->delete();
 	}
 }

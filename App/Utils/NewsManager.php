@@ -2,8 +2,6 @@
 
 namespace App\Utils;
 
-use App\Utils\DB;
-use App\Utils\CommentManager;
 use App\Models\News;
 
 class NewsManager
@@ -32,10 +30,15 @@ class NewsManager
 	*/
 	public function addNews($title, $body)
 	{
-		$db = DB::getInstance();
-		$sql = "INSERT INTO `news` (`title`, `body`, `created_at`) VALUES('". $title . "','" . $body . "','" . date('Y-m-d') . "')";
-		$db->exec($sql);
-		return $db->lastInsertId($sql);
+		$news = new News([
+			'title' => $title,
+			'body' => $body,
+			'created_at' => date('Y-m-d H:i:s')
+		]);
+
+		$news->save();
+
+		return $news->id;
 	}
 
 	/**
@@ -43,21 +46,8 @@ class NewsManager
 	*/
 	public function deleteNews($id)
 	{
-		$comments = CommentManager::getInstance()->listComments();
-		$idsToDelete = [];
-
-		foreach ($comments as $comment) {
-			if ($comment->getNewsId() == $id) {
-				$idsToDelete[] = $comment->getId();
-			}
-		}
-
-		foreach($idsToDelete as $id) {
-			CommentManager::getInstance()->deleteComment($id);
-		}
-
-		$db = DB::getInstance();
-		$sql = "DELETE FROM `news` WHERE `id`=" . $id;
-		return $db->exec($sql);
+		$news = News::find($id);
+		$news->comments()->delete();
+		return $news->delete();
 	}
 }

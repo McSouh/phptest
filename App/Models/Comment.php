@@ -9,4 +9,11 @@ class Comment extends Eloquent
 	protected $table = 'comment';
 	
 	protected $fillable = ['news_id', 'body', 'created_at'];
+
+	public $timestamps = false;
+
+	public function news()
+	{
+		return $this->belongsTo('App\Models\News');
+	}
 }
