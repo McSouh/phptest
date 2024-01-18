@@ -13,3 +13,14 @@ This simple application works, but with very old-style monolithic codebase, so d
 
   - easier to work with
   - more maintainable
+
+_________
+
+## 1. Installation
+To install the project dependencies, use Composer:
+
+composer install
+
+To run the project, use php:
+
+php index.php
