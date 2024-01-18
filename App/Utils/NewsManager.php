@@ -6,17 +6,6 @@ use App\Models\News;
 
 class NewsManager
 {
-	private static $instance = null;
-
-	public static function getInstance()
-	{
-		if (null === self::$instance) {
-			$c = __CLASS__;
-			self::$instance = new $c;
-		}
-		return self::$instance;
-	}
-
 	/**
 	* list all news
 	*/
