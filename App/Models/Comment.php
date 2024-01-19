@@ -9,6 +9,7 @@ class Comment extends Eloquent
 	protected $table = 'comment';
 	
 	protected $fillable = ['news_id', 'body', 'created_at'];
+	protected $appends = ['display_comment'];
 
 	public $timestamps = false;
 
@@ -20,5 +21,15 @@ class Comment extends Eloquent
 	public function news()
 	{
 		return $this->belongsTo(News::class);
+	}
+
+	/**
+	 * Get the display comment.
+	 * 
+	 * @return string
+	 */
+	public function getDisplayCommentAttribute()
+	{
+		return "Comment "  . $this->id . " : " . $this->body;
 	}
 }

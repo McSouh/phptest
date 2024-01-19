@@ -9,6 +9,7 @@ class News extends Eloquent
     protected $table = 'news';
 
     protected $fillable = ['title', 'body', 'created_at'];
+	protected $appends = ['display_title'];
 
     public $timestamps = false;
 
@@ -21,4 +22,14 @@ class News extends Eloquent
     {
         return $this->hasMany(Comment::class);
     }
+
+	/**
+	 * Get the display title.
+	 * 
+	 * @return string
+	 */
+	public function getDisplayTitleAttribute()
+	{
+		return "############ NEWS " . $this->title . " ############";
+	}
 }
