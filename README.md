@@ -17,10 +17,12 @@ This simple application works, but with very old-style monolithic codebase, so d
 _________
 
 ## 1. Installation
-To install the project dependencies, use Composer:
+- To configure database, edit config.php file
+
+- To install the project dependencies, use Composer:
 
 composer install
 
-To run the project, use php:
+- To run the project, use php:
 
 php index.php
